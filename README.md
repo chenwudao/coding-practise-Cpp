@@ -1,155 +1,70 @@
-# 编程练习项目
+# 编程练习（C++）
 
-## 项目概述
+本仓库是一组可单独编译、单独运行的 **C++ 练习**，主题都来自现有源文件：类的继承与多态、运算符重载、文本与二进制文件，以及一道按单位价值选取的贪心。另有若干独立的 Python 脚本（数字变换、分类、整数规划、全景图拼接等），没有统一的构建系统或课程大纲文件。
 
-这是一个包含C++和Python编程练习的综合项目，涵盖了面向对象编程、运算符重载、文件操作、机器学习和网络爬虫等多个主题。项目中的每个文件都是一个独立的编程练习，展示了不同的编程概念和技术。
+This repository is a set of standalone C++ exercises—inheritance and polymorphism, operator overloading, text and binary file I/O, and one value-density greedy—plus a few independent Python scripts. There is no shared build system. Descriptions below follow only what the sources actually do.
 
-## 项目结构
+## C++
 
-```
-├── .vscode/             # VS Code配置文件
-├── Microsoft/           # Windows PowerShell相关文件
-├── 14.6.cpp             # C++编程练习
-├── 14.7.cpp             # C++编程练习
-├── 14.11.cpp            # C++编程练习
-├── Account.cpp          # 账户类测试程序
-├── Account.h            # 账户类定义
-├── Account2.cpp         # 账户类测试程序（版本2）
-├── CHugeInt.cpp         # 大整数类实现
-├── Package.cpp          # 包裹类测试程序
-├── Package.h            # 包裹类定义
-├── Package2.cpp         # 包裹类测试程序（版本2）
-├── animal.cpp           # 动物类实现
-├── circle.cpp           # 圆类及其派生类实现
-├── codes.py             # 加密函数实现
-├── complex.cpp          # 复数类实现
-├── data.csv             # 数据文件
-├── dna.py               # DNA序列分类实现
-├── examcode.py          # 考试代码
-├── file.cpp             # 文件读取示例
-├── hardware.dat         # 硬件数据文件
-├── hzic.py              # 百度地图全景图片爬取和拼接
-├── introhomework.py     # 介绍性作业
-├── manager.cpp          # 管理器实现
-├── musiclearning.py     # 音乐学习相关代码
-├── newmast.dat          # 新主数据文件
-├── nodes.py             # 节点相关代码
-├── oldmast.dat          # 旧主数据文件
-├── overload.cpp         # 运算符重载示例
-├── pipes.py             # 管道相关代码
-├── random100.tsp        # 随机TSP问题数据
-├── template.cpp         # 模板示例
-├── test.txt             # 测试文本文件
-└── trans.dat            # 交易数据文件
-```
+| 文件 | 内容 |
+| --- | --- |
+| `Account.h`、`Account.cpp` | `Account`，以及 `SavingsAccount`、`CheckingAccount`。基类测试存款、取款；储蓄账户按利率计息；支票账户在存取时扣手续费。 |
+| `Account2.cpp` | 另一份含 `main` 的程序。用 `Account*` 的 `vector` 读入存取金额，并用 `dynamic_cast` 给储蓄账户计息。不要与 `Account.cpp` 链在一起。 |
+| `Package.h`、`Package.cpp` | `Package`、`TwoDayPackage`、`OvernightPackage`，按重量与费率计算运费。 |
+| `Package2.cpp` | 另一份含 `main` 的程序。用 `unique_ptr<Package>` 输出寄件人、收件人、运费和合计。不要与 `Package.cpp` 链在一起。 |
+| `circle.cpp` | `circle`、`sphere`、`cylinder`。从标准输入读半径与高，输出球和圆柱的表面积、体积（圆周率取 3.14）。 |
+| `animal.cpp` | `Animal`、`Cat`、`Dog`、`Tiger`。读入动物名直到空行，分别输出 `meow`、`wang`、`howl`。 |
+| `manager.cpp` | 抽象类 `Manager`，派生 `CustManager` 与 `SalesManager`。计算薪资、按薪资降序输出，并再输出不低于平均薪资的记录。 |
+| `complex.cpp` | `Complex` 的 `+`、`-`、`*` 和流输出。 |
+| `CHugeInt.cpp` | 用字符串保存的大整数，支持与另一个大整数或 `int` 相加，并重载 `<<`。 |
+| `overload.cpp` | `String` 的 `<<`：字母按字典序重排后输出，非字母字符留在原位。 |
+| `file.cpp` | 从 `test.txt` 按空白分词读入并打印。 |
+| `14.7.cpp` | 写出示例 `oldmast.dat`（账号、姓名、余额）和 `trans.dat`（账号、金额）。会覆盖同名文件。 |
+| `14.6.cpp` | 按账号把 `oldmast.dat` 与 `trans.dat` 合并为 `newmast.dat`；对不上的交易写到标准错误。 |
+| `14.11.cpp` | 以二进制记录维护 `hardware.dat` 中的工具名称、数量和成本，菜单包括初始化、添加、列表、更新和删除。 |
+| `I.cpp` | 多组数据。每件物品有重量和价值，在容量限制下按价值/重量从高到低选取，可以只取一部分重量。 |
+| `template.cpp` | 未完成片段（`Triangle`、`Square` 的声明，以及几行类型转换记号），不能单独编译。 |
 
-## C++编程练习
+## Python
 
-### 面向对象编程
+| 文件 | 内容 |
+| --- | --- |
+| `codes.py` | 读入一个整数，按千、百、十、个位拆开，每位加 3 后对 9 取余，再按十位、个位、千位、百位的顺序输出。仅用标准库。 |
+| `dna.py` | 以内置 DNA 序列的 A/T/C/G 频率为特征，用 `KNeighborsClassifier`（k = 3）预测另外一组序列的类别。依赖 NumPy、scikit-learn。 |
+| `musiclearning.py` | 以内置简谱的音高分布、节拍变化和速度为特征，用线性核 `SVC` 预测乐谱类别。依赖 NumPy、scikit-learn。 |
+| `introhomework.py` | 对内置的温度—长度数据做线性回归，输出斜率、截距、线胀系数和相关系数，并画拟合图。依赖 NumPy、SciPy、Matplotlib。 |
+| `pipes.py` | 用 PuLP 解钢管下料的整数规划：在 4 m、6 m、8 m 需求约束下最小化余料。 |
+| `examcode.py` | 用 PuLP 解一份食谱整数规划：在热量、蛋白质、钙和份数上限约束下最小化成本。 |
+| `hzic.py` | 按固定 `panoid` 请求百度地图全景接口的 32 块图片，保存到 `img_frag/` 后拼成 `output.jpg`。依赖 requests、NumPy、Pillow、tqdm，并需要能访问该接口。 |
+| `nodes.py` | 使用与 `random100.tsp` 相同的 100 个平面坐标，用随机排列画一条闭合折线，保存为 `tsp_route.html`。不读取 `.tsp` 文件，也不求解旅行商问题。依赖 NumPy、folium。 |
 
-1. **账户类系统** (`Account.h`, `Account.cpp`)
-   - 实现了 `Account` 基类及其派生类 `SavingsAccount` 和 `CheckingAccount`
-   - 展示了继承、多态和虚函数的使用
-   - 测试了账户的存款、取款和利息计算功能
+## 数据文件
 
-2. **包裹类系统** (`Package.h`, `Package.cpp`)
-   - 实现了 `Package` 基类及其派生类 `TwoDayPackage` 和 `OvernightPackage`
-   - 展示了继承、多态和虚函数的使用
-   - 测试了不同包裹的费用计算功能
+- `test.txt`：`file.cpp` 读取的文本。
+- `oldmast.dat`、`trans.dat`、`newmast.dat`：账户主文件与交易；`14.6.cpp` 读取前两个并写出第三个，`14.7.cpp` 会重写前两个。
+- `hardware.dat`：`14.11.cpp` 使用的二进制工具库存。
+- `random100.tsp`：100 个点的 TSPLIB 风格坐标。仓库里没有读取或求解它的程序；`nodes.py` 只是把同一组坐标写在源码里并随机连线。
+- `data.csv`：五所大学的名称、国家和经纬度。当前没有任何程序读取它。
 
-3. **几何类系统** (`circle.cpp`)
-   - 实现了 `circle` 基类及其派生类 `sphere` 和 `cylinder`
-   - 展示了继承、多态和虚函数的使用
-   - 测试了圆、球体和圆柱体的面积和体积计算功能
+仓库里还有 `.vscode`（其中生成任务指向 Windows 下的 `g++.exe`）、已经编译好的 `.exe`，以及 `Microsoft/Windows/PowerShell/` 下的本机缓存。这些不是练习内容。
 
-4. **动物类系统** (`animal.cpp`)
-   - 实现了 `Animal` 基类及其派生类 `Cat`、`Dog` 和 `Tiger`
-   - 展示了继承、多态和虚函数的使用
-   - 测试了不同动物的叫声功能
+## 运行
 
-### 其他C++练习
-
-1. **复数类** (`complex.cpp`)
-   - 实现了复数类及其加减乘运算符重载
-   - 测试了复数的运算功能
-
-2. **文件操作** (`file.cpp`)
-   - 实现了简单的文件读取功能
-   - 测试了从文本文件中读取内容并输出到控制台的功能
-
-3. **大整数类** (`CHugeInt.cpp`)
-   - 实现了大整数类及其相关功能
-
-4. **运算符重载** (`overload.cpp`)
-   - 展示了运算符重载的使用
-
-## Python编程练习
-
-1. **加密函数** (`codes.py`)
-   - 实现了一个简单的加密函数，对输入的整数进行加密
-   - 测试了加密功能
-
-2. **DNA序列分类** (`dna.py`)
-   - 使用KNN分类器对DNA序列进行分类
-   - 提取了DNA序列的碱基频率作为特征
-   - 测试了分类功能
-
-3. **百度地图全景图片爬取和拼接** (`hzic.py`)
-   - 从百度地图API获取分割成32张的全景图片碎片
-   - 将这些碎片拼接成一张完整的全景图片
-   - 测试了爬取和拼接功能
-
-4. **其他Python练习**
-   - `introhomework.py`: 介绍性作业
-   - `musiclearning.py`: 音乐学习相关代码
-   - `nodes.py`: 节点相关代码
-   - `pipes.py`: 管道相关代码
-
-## 如何运行
-
-### C++程序
-
-1. 使用C++编译器（如g++）编译C++文件
-2. 运行编译生成的可执行文件
-
-例如，运行Account.cpp：
+C++ 源文件各自带有 `main`（`template.cpp` 除外）。头文件与对应的 `.cpp` 放在同一目录即可，例如：
 
 ```bash
-g++ Account.cpp -o Account.exe
-./Account.exe
+g++ Account.cpp -o Account
+./Account
+
+g++ 14.6.cpp -o match-accounts
+./match-accounts
 ```
 
-### Python程序
+`Account2.cpp`、`Package2.cpp` 请单独编译，不要和已有 `main` 的 `Account.cpp`、`Package.cpp` 一起链接。
 
-1. 确保安装了Python 3.x
-2. 安装必要的依赖（如numpy, sklearn等）
-3. 运行Python文件
-
-例如，运行codes.py：
+Python 使用 3.x，依赖见上表，例如：
 
 ```bash
-python codes.py
+python3 codes.py
+python3 dna.py
 ```
-
-## 依赖
-
-### C++程序
-- C++编译器（如g++）
-
-### Python程序
-- Python 3.x
-- numpy
-- sklearn（用于dna.py）
-- requests（用于hzic.py）
-- PIL（用于hzic.py）
-- tqdm（用于hzic.py）
-
-## 总结
-
-这个项目是一个综合性的编程练习集合，涵盖了C++和Python的多个编程主题。通过这些练习，可以巩固面向对象编程、运算符重载、文件操作、机器学习和网络爬虫等编程技能。每个练习都是独立的，可以单独运行和学习。
-
-## 注意事项
-
-- 部分Python程序可能需要安装额外的依赖包
-- 部分程序可能需要特定的数据文件才能正常运行
-- 部分程序可能仅适用于特定的操作系统环境
